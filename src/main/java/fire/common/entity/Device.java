@@ -1,6 +1,12 @@
-package fire.company.entity;
+package fire.common.entity;
 
-import java.sql.Timestamp;
+
+
+import java.util.Date;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class Device {
 	private int Id;
@@ -8,13 +14,21 @@ public class Device {
 	private String Model;
 	private String Manufacturer;
 	private String Spec;
-	private Timestamp UseTime;
-	private Timestamp AddTime;
-	private int Buildings;
-	private int Floor;
+	private Date UseTime;
+	private Date AddTime;
+	private Integer Buildings;
+	private Integer Floor;
 	private String Position;
 	private String Passageway;
 	private String Detail;
+	private int ManagerId;
+	private int CompanyId;
+	public int getCompanyId() {
+		return CompanyId;
+	}
+	public void setCompanyId(int companyId) {
+		CompanyId = companyId;
+	}
 	public Device(){
 		
 	}
@@ -48,28 +62,30 @@ public class Device {
 	public void setSpec(String spec) {
 		Spec = spec;
 	}
-	public Timestamp getUseTime() {
+	public Date getUseTime() {
 		return UseTime;
 	}
-	public void setUseTime(Timestamp useTime) {
+	public void setUseTime(Date useTime) {
 		UseTime = useTime;
 	}
-	public Timestamp getAddTime() {
+	@JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd")
+	public Date getAddTime() {
 		return AddTime;
 	}
-	public void setAddTime(Timestamp addTime) {
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	public void setAddTime(Date addTime) {
 		AddTime = addTime;
 	}
-	public int getBuildings() {
+	public Integer getBuildings() {
 		return Buildings;
 	}
-	public void setBuildings(int buildings) {
+	public void setBuildings(Integer buildings) {
 		Buildings = buildings;
 	}
-	public int getFloor() {
+	public Integer getFloor() {
 		return Floor;
 	}
-	public void setFloor(int floor) {
+	public void setFloor(Integer floor) {
 		Floor = floor;
 	}
 	public String getPosition() {
@@ -115,7 +131,8 @@ public class Device {
 		return "Device [Id=" + Id + ", DeviceTypeId=" + DeviceTypeId + ", Model=" + Model + ", Manufacturer="
 				+ Manufacturer + ", Spec=" + Spec + ", UseTime=" + UseTime + ", AddTime=" + AddTime + ", Buildings="
 				+ Buildings + ", Floor=" + Floor + ", Position=" + Position + ", Passageway=" + Passageway + ", Detail="
-				+ Detail + "]";
+				+ Detail + ", ManagerId=" + ManagerId + ", CompanyId=" + CompanyId + "]";
 	}
+	
 	
 }

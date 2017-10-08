@@ -1,4 +1,4 @@
-package fire.company.entity;
+package fire.common.entity;
 
 import java.util.Date;
 

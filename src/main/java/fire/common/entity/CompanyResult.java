@@ -1,4 +1,5 @@
-package fire.company.entity;
+package fire.common.entity;
+
 
 
 public class CompanyResult extends Company{
@@ -65,16 +66,6 @@ public class CompanyResult extends Company{
 	public void setToken(String token) {
 		Token = token;
 	}
-	@Override
-	public String toString() {
-		return "CompanyResult [UserName=" + UserName + ", Password=" + Password + ", CompanyId=" + CompanyId
-				+ ", ManagerId=" + ManagerId + ", getId()=" + getId() + ", getName()=" + getName() + ", getCode()="
-				+ getCode() + ", getLogo()=" + getLogo() + ", getIntro()=" + getIntro() + ", getIndustry()="
-				+ getIndustry() + ", getProvince()=" + getProvince() + ", getCity()=" + getCity() + ", getArea()="
-				+ getArea() + ", getAddress()=" + getAddress() + ", getPassed()=" + getPassed() + ", getStatus()="
-				+ getStatus() + ", getReorder()=" + getReorder() + ", getAddTime()=" + getAddTime() + ", getRemark()="
-				+ getRemark() + ", getLevelId()=" + getLevelId() + ", getTel()=" + getTel() + ", getSN()=" + getSN()
-				+ ", getAtten()=" + getAtten() + ", hashCode()=" + hashCode() + ", toString()=" + super.toString()
-				+ ", getClass()=" + getClass() + "]";
-	}
+
+	
 }

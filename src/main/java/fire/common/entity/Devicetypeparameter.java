@@ -1,4 +1,4 @@
-package fire.company.entity;
+package fire.common.entity;
 public class Devicetypeparameter {
 	private int Id;
 	private String Description;

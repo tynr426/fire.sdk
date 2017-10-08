@@ -1,5 +1,6 @@
 package fire.sdk.utils;
 
+import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
 import java.security.InvalidKeyException;
 import java.security.MessageDigest;
@@ -17,74 +18,161 @@ import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;  
 
 public class AES {
-    /** 
-     * 将byte[]转为各种进制的字符串 
-     * @param bytes byte[] 
-     * @param radix 可以转换进制的范围，从Character.MIN_RADIX到Character.MAX_RADIX，超出范围后变为10进制 
-     * @return 转换后的字符串 
-     */  
-    public static String binary(byte[] bytes, int radix){  
-        return new BigInteger(1, bytes).toString(radix);// 这里的1代表正数  
-    }  
-   
-      
-   
-      
-    /** 
-     * AES加密 
-     * @param content 待加密的内容 
-     * @param encryptKey 加密密钥 
-     * @return 加密后的byte[] 
-     * @throws Exception 
-     */  
-    public static byte[] aesEncryptToBytes(String content, String encryptKey) throws Exception {  
-        KeyGenerator kgen = KeyGenerator.getInstance("AES");  
-        kgen.init(128, new SecureRandom(encryptKey.getBytes()));  
-  
-        Cipher cipher = Cipher.getInstance("AES");  
-        cipher.init(Cipher.ENCRYPT_MODE, new SecretKeySpec(kgen.generateKey().getEncoded(), "AES"));  
-          
-        return cipher.doFinal(content.getBytes("utf-8"));  
-    }  
-      
-    /** 
-     * AES加密为base 64 code 
-     * @param content 待加密的内容 
-     * @param encryptKey 加密密钥 
-     * @return 加密后的base 64 code 
-     * @throws Exception 
-     */  
-    public static String aesEncrypt(String content, String encryptKey) throws Exception {  
-        return new String(aesEncryptToBytes(content, encryptKey),"UTF-8");  
-    }  
-      
-    /** 
-     * AES解密 
-     * @param encryptBytes 待解密的byte[] 
-     * @param decryptKey 解密密钥 
-     * @return 解密后的String 
-     * @throws Exception 
-     */  
-    public static String aesDecryptByBytes(byte[] encryptBytes, String decryptKey) throws Exception {  
-        KeyGenerator kgen = KeyGenerator.getInstance("AES");  
-        kgen.init(128, new SecureRandom(decryptKey.getBytes()));  
-          
-        Cipher cipher = Cipher.getInstance("AES");  
-        cipher.init(Cipher.DECRYPT_MODE, new SecretKeySpec(kgen.generateKey().getEncoded(), "AES"));  
-        byte[] decryptBytes = cipher.doFinal(encryptBytes);  
-          
-        return new String(decryptBytes);  
-    }  
-      
-    /** 
-     * 将base 64 code AES解密 
-     * @param encryptStr 待解密的base 64 code 
-     * @param decryptKey 解密密钥 
-     * @return 解密后的string 
-     * @throws Exception 
-     */  
-    public static String aesDecrypt(String encryptStr, String decryptKey) throws Exception {  
-    	
-        return encryptStr.isEmpty() ? null : aesDecryptByBytes(encryptStr.getBytes("UTF-8"), decryptKey);  
-    }  
+	/**
+	 * 加密
+	 * 
+	 * @param content
+	 *            需要加密的内容
+	 * @param password
+	 *            加密密码
+	 * @return
+	 */
+	public static byte[] encrypt(String content, String password) {
+		try {
+			KeyGenerator kgen = KeyGenerator.getInstance("AES");
+			kgen.init(128, new SecureRandom(password.getBytes()));
+			SecretKey secretKey = kgen.generateKey();
+			byte[] enCodeFormat = secretKey.getEncoded();
+			SecretKeySpec key = new SecretKeySpec(enCodeFormat, "AES");
+			Cipher cipher = Cipher.getInstance("AES");// 创建密码器
+			byte[] byteContent = content.getBytes("utf-8");
+			cipher.init(Cipher.ENCRYPT_MODE, key);// 初始化
+			byte[] result = cipher.doFinal(byteContent);
+			return result; // 加密
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
+		} catch (NoSuchPaddingException e) {
+			e.printStackTrace();
+		} catch (InvalidKeyException e) {
+			e.printStackTrace();
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		} catch (IllegalBlockSizeException e) {
+			e.printStackTrace();
+		} catch (BadPaddingException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	/**
+	 * 解密
+	 * 
+	 * @param content
+	 *            待解密内容
+	 * @param password
+	 *            解密密钥
+	 * @return
+	 */
+	public static byte[] decrypt(byte[] content, String password) {
+		try {
+			KeyGenerator kgen = KeyGenerator.getInstance("AES");
+			kgen.init(128, new SecureRandom(password.getBytes()));
+			SecretKey secretKey = kgen.generateKey();
+			byte[] enCodeFormat = secretKey.getEncoded();
+			SecretKeySpec key = new SecretKeySpec(enCodeFormat, "AES");
+			Cipher cipher = Cipher.getInstance("AES");// 创建密码器
+			cipher.init(Cipher.DECRYPT_MODE, key);// 初始化
+			byte[] result = cipher.doFinal(content);
+			return result; // 加密
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
+		} catch (NoSuchPaddingException e) {
+			e.printStackTrace();
+		} catch (InvalidKeyException e) {
+			e.printStackTrace();
+		} catch (IllegalBlockSizeException e) {
+			e.printStackTrace();
+		} catch (BadPaddingException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	/**
+	 * 将二进制转换成16进制
+	 * 
+	 * @param buf
+	 * @return
+	 */
+	public static String parseByte2HexStr(byte buf[]) {
+		StringBuffer sb = new StringBuffer();
+		for (int i = 0; i < buf.length; i++) {
+			String hex = Integer.toHexString(buf[i] & 0xFF);
+			if (hex.length() == 1) {
+				hex = '0' + hex;
+			}
+			sb.append(hex.toUpperCase());
+		}
+		return sb.toString();
+	}
+
+	/**
+	 * 将16进制转换为二进制
+	 * 
+	 * @param hexStr
+	 * @return
+	 */
+	public static byte[] parseHexStr2Byte(String hexStr) {
+		if (hexStr.length() < 1)
+			return null;
+		byte[] result = new byte[hexStr.length() / 2];
+		for (int i = 0; i < hexStr.length() / 2; i++) {
+			int high = Integer.parseInt(hexStr.substring(i * 2, i * 2 + 1), 16);
+			int low = Integer.parseInt(hexStr.substring(i * 2 + 1, i * 2 + 2), 16);
+			result[i] = (byte) (high * 16 + low);
+		}
+		return result;
+	}
+
+	/**
+	 * 加密
+	 *
+	 * @param content
+	 *            需要加密的内容
+	 * @param password
+	 *            加密密码
+	 * @return
+	 */
+	public static byte[] encrypt2(String content, String password) {
+		try {
+			SecretKeySpec key = new SecretKeySpec(password.getBytes(), "AES");
+			Cipher cipher = Cipher.getInstance("AES/ECB/NoPadding");
+			byte[] byteContent = content.getBytes("utf-8");
+			cipher.init(Cipher.ENCRYPT_MODE, key);// 初始化
+			byte[] result = cipher.doFinal(byteContent);
+			return result; // 加密
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
+		} catch (NoSuchPaddingException e) {
+			e.printStackTrace();
+		} catch (InvalidKeyException e) {
+			e.printStackTrace();
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		} catch (IllegalBlockSizeException e) {
+			e.printStackTrace();
+		} catch (BadPaddingException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	public static String aesEncrypt(String content, String password){
+		byte[] encode = encrypt(content, password);
+
+		//传输过程,不转成16进制的字符串，就等着程序崩溃掉吧
+		return parseByte2HexStr(encode);
+	}
+	public static String aesDecrypt(String content, String password){
+		byte[] decode = parseHexStr2Byte(content);
+		byte[] decryptResult = decrypt(decode, password);
+        try {
+			return new String(decryptResult, "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        return "";
+	}
 }

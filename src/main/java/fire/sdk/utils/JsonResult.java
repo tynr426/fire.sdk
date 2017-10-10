@@ -17,6 +17,7 @@ public class JsonResult implements Serializable{
 		this.message = message;
 	}
 	public JsonResult() {
+
 	}
 	public JsonResult(Throwable e) {
 		state=ERROR;

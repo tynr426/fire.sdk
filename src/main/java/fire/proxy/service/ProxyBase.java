@@ -4,6 +4,7 @@ import java.util.Map;
 
 import org.json.JSONObject;
 
+import fire.common.entity.DeviceResult;
 import fire.modules.entity.FormatType;
 import fire.modules.entity.ResultResponse;
 import fire.sdk.utils.HttpRequestUtils;
@@ -99,11 +100,12 @@ public class ProxyBase {
 	/// <returns>
 	/// IResultResponse
 	/// </returns>
-	public JsonResult GetResponse(String className, String actionName, Map<String, String> parameters)
+	public JsonResult GetResponse(String className, String actionName, Map<String, Object> parameters)
 	{
 		return GetResponse(className, actionName, parameters,FormatType.Binary,"2.0","Post");
 
 	}
+	
 
 	/// <summary>
 	/// 获取远程字符串.
@@ -116,7 +118,7 @@ public class ProxyBase {
 	/// <returns>
 	/// IResultResponse
 	/// </returns>
-	public JsonResult GetResponse(String className, String actionName, Map<String, String>  parameters, FormatType format, String version, String requestMethod)
+	public JsonResult GetResponse(String className, String actionName, Map<String, Object>  parameters, FormatType format, String version, String requestMethod)
 	{
 		String url = GetUrl(className, actionName, format, version),
 

@@ -308,12 +308,16 @@ public class HttpRequestUtils {
       * @param maps
       *            参数
       */
-     public static String sendHttpPost(String httpUrl, Map<String, String> maps) {
+     public static String sendHttpPost(String httpUrl, Map<String, Object> maps) {
          String parem = convertStringParamter(maps);
          return sendHttpPost(httpUrl, parem);
      }
  
-     
+     public static<T> String sendHttpPost(String httpUrl, T t) {
+    	 
+         String parem = JsonUtils.objectToJson(t);
+         return sendHttpPostJson(httpUrl, parem);
+     }
      
      
      /**

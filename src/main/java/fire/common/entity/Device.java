@@ -2,13 +2,18 @@ package fire.common.entity;
 
 
 
+import java.io.Serializable;
 import java.util.Date;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-public class Device {
+public class Device  implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6349385047831660844L;
 	private int Id;
 	private int DeviceTypeId;
 	private String Model;

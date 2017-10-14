@@ -10,6 +10,7 @@ import fire.modules.entity.ResultResponse;
 import fire.sdk.utils.HttpRequestUtils;
 import fire.sdk.utils.JsonResult;
 import fire.sdk.utils.JsonUtils;
+import fire.sdk.utils.SyncHttp;
 
 public class ProxyBase {
 
@@ -105,7 +106,7 @@ public class ProxyBase {
 		return GetResponse(className, actionName, parameters,FormatType.Binary,"2.0","Post");
 
 	}
-	
+
 
 	/// <summary>
 	/// 获取远程字符串.
@@ -138,12 +139,12 @@ public class ProxyBase {
 		}
 		try {
 			return JsonUtils.JSONToObj(content, JsonResult.class);
-			
+
 		} catch (Exception e) {
 			return new JsonResult(e);
 			// TODO: handle exception
 		}
-		
+
 
 	}
 	/// <summary>
@@ -174,6 +175,25 @@ public class ProxyBase {
 		return url;
 	}
 
+	public  JsonResult httpPostSerialObject(String className, String actionName,Object serializedObject){
+		String content="";
+		try {
+			content=SyncHttp.httpPostSerialObject(GetUrl(className,actionName,FormatType.Binary,"1.0"), 1000, 100000, serializedObject);
 
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		if(content==null||content.isEmpty()){
+			return new JsonResult(new Exception("远程服务器报错"));
+		}
+		try {
+			return JsonUtils.JSONToObj(content, JsonResult.class);
+
+		} catch (Exception e) {
+			return new JsonResult(e);
+			// TODO: handle exception
+		}
+	}
 
 }

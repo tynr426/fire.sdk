@@ -1,6 +1,12 @@
 package fire.common.entity;
 
-public class DeviceParameterValue {
+import java.io.Serializable;
+
+public class DeviceParameterValue  implements Serializable{
+/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1564041703112744986L;
 private int Id;
 private int DeviceId;
 private int DeviceTypeId;

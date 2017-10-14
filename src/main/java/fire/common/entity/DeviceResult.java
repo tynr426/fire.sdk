@@ -1,8 +1,13 @@
 package fire.common.entity;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class DeviceResult extends Device{
+public class DeviceResult extends Device  implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7980232114754736119L;
 	private String Name;
 	private List<DeviceParameterValue> list;
 	public String getName() {

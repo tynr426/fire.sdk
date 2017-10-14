@@ -6,7 +6,9 @@ import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map; 
+import java.util.Map;
+import java.util.Map.Entry;
+
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpStatus;
 import org.apache.http.client.config.RequestConfig;
@@ -374,25 +376,20 @@ public class HttpRequestUtils {
       *            需要转化的键值对集合
       * @return 字符串
       */
-     public static String convertStringParamter(Map parameterMap) {
-         StringBuffer parameterBuffer = new StringBuffer();
-         if (parameterMap != null) {
-             Iterator iterator = parameterMap.keySet().iterator();
-             String key = null;
-             String value = null;
-             while (iterator.hasNext()) {
-                 key = (String) iterator.next();
-                 if (parameterMap.get(key) != null) {
-                     value = (String) parameterMap.get(key);
-                 } else {
-                     value = "";
-                 }
-                 parameterBuffer.append(key).append("=").append(value);
-                 if (iterator.hasNext()) {
-                     parameterBuffer.append("&");
-                 }
-             }
-         }
-         return parameterBuffer.toString();
+     public static String convertStringParamter(Map<String,Object> map) {
+    	 if (map == null) {  
+             return "";  
+         }  
+         StringBuffer sb = new StringBuffer();  
+         for (Map.Entry<String, Object> entry : map.entrySet()) {  
+             sb.append(entry.getKey() + "=" + entry.getValue());  
+             sb.append("&");  
+         }  
+         String s = sb.toString();  
+         if (s.endsWith("&")) {  
+             s = s.substring(0,s.length()-1);
+         }  
+         return s;  
      }
+
 }

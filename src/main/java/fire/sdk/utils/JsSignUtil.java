@@ -9,12 +9,14 @@ import java.util.Map;
 import java.util.UUID;
 
 import org.springframework.stereotype.Component;
-@Component
+
+import fire.common.entity.WeChatAccount;
+
 public class JsSignUtil {  
     public static String accessToken = null;  
-    public static Map<String, String> sign(String url) {  
-        accessToken = "";  
-        String jsapi_ticket = "";  
+    public static Map<String, String> sign(String url,WeChatAccount wca) {  
+        accessToken = Wechat.getAccessToken(wca.getAppId(), wca.getSecret());  
+        String jsapi_ticket = Wechat.getJSAPITicket(accessToken);
      
           
         Map<String, String> ret = new HashMap<String, String>();  
@@ -26,7 +28,7 @@ public class JsSignUtil {
         //注意这里参数名必须全部小写，且必须有序  
         string1 = "jsapi_ticket=" + jsapi_ticket +  
                   "&noncestr=" + nonce_str +  
-                  "×tamp=" + timestamp +  
+                  "&tamp=" + timestamp +  
                   "&url=" + url;  
         System.out.println("string1="+string1);  
   
@@ -51,7 +53,7 @@ public class JsSignUtil {
         ret.put("nonceStr", nonce_str);  
         ret.put("timestamp", timestamp);  
         ret.put("signature", signature);  
-        ret.put("appId", "wxcbba33f6b9ce1286");  
+        ret.put("appId", wca.getAppId());  
   
         System.out.println("1.ticket(原始)="+jsapi_ticket);  
         System.out.println("2.url="+ret.get("url"));  

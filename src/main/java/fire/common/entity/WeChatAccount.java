@@ -1,8 +1,13 @@
 package fire.common.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class WeChatAccount {
+public class WeChatAccount implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2899893545293294099L;
 	private int Id;
 	private String Name;
 	private String HeaderSrc;

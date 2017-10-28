@@ -12,6 +12,13 @@ public class DeviceType {
 	private String Name;
 	private Integer Status;
 	private Date UseTime;
+	private String VirtualPath;
+	public String getVirtualPath() {
+		return VirtualPath;
+	}
+	public void setVirtualPath(String virtualPath) {
+		VirtualPath = virtualPath;
+	}
 	public DeviceType(){
 		
 	}
@@ -63,7 +70,8 @@ public class DeviceType {
 	}
 	@Override
 	public String toString() {
-		return "DeviceType [Id=" + Id + ", Name=" + Name + ", Status=" + Status + ", UseTime=" + UseTime + "]";
+		return "DeviceType [Id=" + Id + ", Name=" + Name + ", Status=" + Status + ", UseTime=" + UseTime
+				+ ", VirtualPath=" + VirtualPath + "]";
 	}
 	
 	

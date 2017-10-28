@@ -12,9 +12,16 @@ public class DeviceQR {
 	private String Code;
 	private String QRVirtural;
 	private Integer IsUsed;
+	private Integer DeviceId;
 	private Date AddTime;
 	public int getId() {
 		return Id;
+	}
+	public Integer getDeviceId() {
+		return DeviceId;
+	}
+	public void setDeviceId(Integer deviceId) {
+		DeviceId = deviceId;
 	}
 	public void setId(int id) {
 		Id = id;
@@ -74,7 +81,8 @@ public class DeviceQR {
 	@Override
 	public String toString() {
 		return "DeviceQR [Id=" + Id + ", DeviceTypeId=" + DeviceTypeId + ", Code=" + Code + ", QRVirtural=" + QRVirtural
-				+ ", IsUsed=" + IsUsed + ", AddTime=" + AddTime + "]";
+				+ ", IsUsed=" + IsUsed + ", DeviceId=" + DeviceId + ", AddTime=" + AddTime + "]";
 	}
+	
 	
 }

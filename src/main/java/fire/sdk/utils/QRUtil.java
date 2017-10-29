@@ -83,8 +83,7 @@ public class QRUtil {
         if (!file.exists()) {  
            System.err.println("" + imgPath + "   该文件不存在！");  
            return;  
-        }  
-        ImageIO.write(source, "jpg", file);
+        }  ;
         Image src = ImageIO.read(new File(imgPath));  
         int width = src.getWidth(null);  
         int height = src.getHeight(null);  
@@ -121,11 +120,12 @@ public class QRUtil {
      * @param needCompress 
      * @throws Exception 
      */  
-    public static void encode(String content, String imgPath, String destPath, boolean needCompress) throws Exception {  
+    public static String encode(String content, String imgPath, String destPath, boolean needCompress) throws Exception {  
         BufferedImage image = QRUtil.createImage(content, imgPath, needCompress);  
         mkdirs(destPath);  
         String file = new Random().nextInt(99999999) + ".jpg";//生成随机文件名  
-        ImageIO.write(image, FORMAT_NAME, new File(destPath + "/" + file));  
+        ImageIO.write(image, FORMAT_NAME, new File(destPath + "/" + file));
+        return file;
     }  
   
     public static void mkdirs(String destPath) {  
@@ -144,8 +144,8 @@ public class QRUtil {
         QRUtil.encode(content, null, destPath, needCompress);  
     }  
   
-    public static void encode(String content, String destPath) throws Exception {  
-        QRUtil.encode(content, null, destPath, false);  
+    public static String encode(String content, String destPath) throws Exception {  
+       return QRUtil.encode(content, null, destPath, false);  
     }  
   
     public static void encode(String content, String imgPath, OutputStream output, boolean needCompress)  

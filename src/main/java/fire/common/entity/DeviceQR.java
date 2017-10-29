@@ -14,6 +14,13 @@ public class DeviceQR {
 	private Integer IsUsed;
 	private Integer DeviceId;
 	private Date AddTime;
+	private String Batch;
+	public String getBatch() {
+		return Batch;
+	}
+	public void setBatch(String batch) {
+		Batch = batch;
+	}
 	public int getId() {
 		return Id;
 	}
@@ -81,8 +88,9 @@ public class DeviceQR {
 	@Override
 	public String toString() {
 		return "DeviceQR [Id=" + Id + ", DeviceTypeId=" + DeviceTypeId + ", Code=" + Code + ", QRVirtural=" + QRVirtural
-				+ ", IsUsed=" + IsUsed + ", DeviceId=" + DeviceId + ", AddTime=" + AddTime + "]";
+				+ ", IsUsed=" + IsUsed + ", DeviceId=" + DeviceId + ", AddTime=" + AddTime + ", Batch=" + Batch + "]";
 	}
+	
 	
 	
 }

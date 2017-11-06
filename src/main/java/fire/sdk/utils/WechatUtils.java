@@ -8,15 +8,23 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Component;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import fire.common.entity.WeChatAccount;
+import fire.proxy.service.ProxyBase;
 
-public class JsSignUtil {  
+public class WechatUtils {  
     public static String accessToken = null;  
     public static Map<String, String> sign(String url,WeChatAccount wca) {  
-        accessToken = Wechat.getAccessToken(wca.getAppId(), wca.getSecret());  
-        String jsapi_ticket = Wechat.getJSAPITicket(accessToken);
+        accessToken = WechatJsSDK.getAccessToken(wca.getAppId(), wca.getSecret());  
+        String jsapi_ticket = WechatJsSDK.getJSAPITicket(accessToken);
      
           
         Map<String, String> ret = new HashMap<String, String>();  
@@ -38,7 +46,7 @@ public class JsSignUtil {
             crypt.reset();  
             crypt.update(string1.getBytes("UTF-8"));  
             signature = byteToHex(crypt.digest());  
-        }  
+        }
         catch (NoSuchAlgorithmException e)  
         {  
             e.printStackTrace();  
@@ -96,5 +104,25 @@ public class JsSignUtil {
      */  
     private static String create_timestamp() {  
         return Long.toString(System.currentTimeMillis() / 1000);  
-    }  
+    }
+    @Cacheable(value=  "wechat")
+    public static WeChatAccount GetWechatAccount(){
+    	JsonResult result= new ProxyBase().httpPostSerialObject("company.social", "getWeChatAccount",null);
+		return JsonUtils.JSONToObj(JsonUtils.objectToJson(result.getData()),WeChatAccount.class)	;
+    }
+    @CacheEvict(value =  "wechat")
+    public static void RemoveWechatAccount(){
+    	
+    }
+    /*判断是否微信浏览器*/
+    public static boolean IsWxBrowser(){
+		HttpServletRequest request = ((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getRequest(); 
+
+    	String ua = request.getHeader("user-agent")  
+    	        .toLowerCase();  
+    	if (ua.indexOf("micromessenger") > 0) {// 是微信浏览器  
+    	    return true;  
+    	}  
+    	return false;
+    }
 }  

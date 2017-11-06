@@ -3,10 +3,11 @@ package fire.sdk.utils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class Wechat {
+public class WechatJsSDK {
 	private static final String GET_ACCESS_TOKEN="https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=%1$s&secret=%2$s";
 	
 	private static final String GET_JSAPI_TICKET="https://api.weixin.qq.com/cgi-bin/ticket/getticket?type=jsapi&access_token=%1$s";
+	
 	/**
 	 * 获取access_token，然后jsapi_ticket
 	 */
@@ -17,7 +18,7 @@ public class Wechat {
 		String ticket = null;// jsapi_ticket
 		String ttime = null;// 得到时间
 		String t_expires_in = null;// 有效时间(s)
-		String access_tokenStr = Wechat.getAccessToken(appId,appSecret);
+		String access_tokenStr = WechatJsSDK.getAccessToken(appId,appSecret);
 		if (access_tokenStr != null
 				&& access_tokenStr.indexOf("access_token") != -1) {
 			try {
@@ -30,7 +31,7 @@ public class Wechat {
 			}
 		}
 		if (access_token != null && !access_token.equals("")) {
-			String ticketStr = Wechat.getJSAPITicket(access_token);
+			String ticketStr = WechatJsSDK.getJSAPITicket(access_token);
 			// System.out.println("ticketStr:" + ticketStr);
 			if (ticketStr != null && ticketStr.indexOf("ticket") != -1) {
 				try {
@@ -87,4 +88,5 @@ public class Wechat {
 		}
 		return "";
 	}
+	
 }

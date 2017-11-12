@@ -13,6 +13,13 @@ public class CompanyResult extends Company{
 	private String Email;
 	private String Mobile;
 	private String Token;
+	private int UserId;
+	public int getUserId() {
+		return UserId;
+	}
+	public void setUserId(int userId) {
+		UserId = userId;
+	}
 	public String getUserName() {
 		return UserName;
 	}

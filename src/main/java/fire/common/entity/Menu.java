@@ -1,5 +1,8 @@
 package fire.common.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Menu {
 	private int Id;
 	private Integer ParentId;
@@ -13,6 +16,13 @@ public class Menu {
 	private String Target;
 	private Integer Status;
 	private String Remark;
+	private List<Menu> list=new ArrayList<Menu>();
+	public List<Menu> getList() {
+		return list;
+	}
+	public void setList(List<Menu> list) {
+		this.list = list;
+	}
 	public int getId() {
 		return Id;
 	}

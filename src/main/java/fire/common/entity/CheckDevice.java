@@ -15,8 +15,15 @@ public class CheckDevice {
 	private String ManagerName;
 	private String Description;
 	private String Certificate;
-	private Integer SeverityLevel;
+	protected Integer SeverityLevel;
+	protected Integer Status;
 	private Date AddTime;
+	public Integer getStatus() {
+		return Status;
+	}
+	public void setStatus(Integer status) {
+		Status = status;
+	}
 	public int getId() {
 		return Id;
 	}
@@ -99,12 +106,6 @@ public class CheckDevice {
 			return false;
 		return true;
 	}
-	@Override
-	public String toString() {
-		return "Checkdevice [Id=" + Id + ", DeviceId=" + DeviceId + ", DeviceTypeId=" + DeviceTypeId + ", CompanyId="
-				+ CompanyId + ", ManagerId=" + ManagerId + ", ManagerName=" + ManagerName + ", Description="
-				+ Description + ", Certificate=" + Certificate + ", SeverityLevel=" + SeverityLevel + ", AddTime="
-				+ AddTime + "]";
-	}
+	
 	
 }

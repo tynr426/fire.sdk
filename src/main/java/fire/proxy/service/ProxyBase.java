@@ -35,7 +35,7 @@ public class ProxyBase {
 
 		this.FK_Id=_FK_Id;
 	}
-	private String _ApiUrl = "http://localhost:8080/fire/Route";
+	private String _ApiUrl = "http://127.0.0.1/fire/Route";
 
 	public String get_ApiUrl() {
 		if(_ApiUrl.isEmpty())

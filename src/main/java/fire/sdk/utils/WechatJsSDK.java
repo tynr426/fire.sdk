@@ -59,8 +59,15 @@ public class WechatJsSDK {
 
 		String url =String.format(GET_ACCESS_TOKEN, APPID,APPSECRET);
 		String resultStr =HttpRequestUtils.sendHttpPost(url, "");
-
-		return resultStr;
+		String token="";
+		try {
+			JSONObject jsonObject = new JSONObject(resultStr);
+			token = jsonObject.getString("access_token");
+			
+		} catch (JSONException e) {
+			// e.printStackTrace();
+		}
+		return token;
 
 	}
 
@@ -77,10 +84,10 @@ public class WechatJsSDK {
 		String url = String.format(GET_JSAPI_TICKET, access_token);
 		String access_tokenStr = HttpRequestUtils.sendHttpPost(url, "");
 		if (access_tokenStr != null
-				&& access_tokenStr.indexOf("access_token") != -1) {
+				&& access_tokenStr.indexOf("ticket") != -1) {
 			try {
 				JSONObject jsonObject = new JSONObject(access_tokenStr);
-			    return 	access_token = jsonObject.getString("access_token");
+			    return 	access_token = jsonObject.getString("ticket");
 				
 			} catch (JSONException e) {
 				// e.printStackTrace();

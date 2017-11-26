@@ -5,9 +5,9 @@ import org.json.JSONObject;
 
 public class WechatJsSDK {
 	private static final String GET_ACCESS_TOKEN="https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=%1$s&secret=%2$s";
-	
+
 	private static final String GET_JSAPI_TICKET="https://api.weixin.qq.com/cgi-bin/ticket/getticket?type=jsapi&access_token=%1$s";
-	
+
 	/**
 	 * 获取access_token，然后jsapi_ticket
 	 */
@@ -51,24 +51,36 @@ public class WechatJsSDK {
 					+ "\",\"atime\":\"" + atime + "\",\"ticket\":\"" + ticket
 					+ "\",\"t_expires_in\":\"" + t_expires_in
 					+ "\",\"ttime\":\"" + ttime + "\"}";
-			
+
 		}
 		return result;
 	}
 	public static String getAccessToken(String APPID, String APPSECRET) {
-
-		String url =String.format(GET_ACCESS_TOKEN, APPID,APPSECRET);
-		String resultStr =HttpRequestUtils.sendHttpPost(url, "");
+		String key="WechatConstants";
 		String token="";
-		try {
-			JSONObject jsonObject = new JSONObject(resultStr);
-			token = jsonObject.getString("access_token");
-			
-		} catch (JSONException e) {
-			// e.printStackTrace();
-		}
-		return token;
+		Cache obj= CacheUtils.getCacheInfo(key);
+		if(obj==null){
+			String url =String.format(GET_ACCESS_TOKEN, APPID,APPSECRET);
+			String resultStr =HttpRequestUtils.sendHttpPost(url, "");
 
+			try {
+				JSONObject jsonObject = new JSONObject(resultStr);
+				token = jsonObject.getString("access_token");
+
+				Cache c = new Cache();
+				c.setValue(token);
+				c.setTimeOut(7000*1000);
+				c.setExpired(false);
+				CacheUtils.putCache(key, c);
+
+			} catch (JSONException e) {
+				// e.printStackTrace();
+			}
+			return token;
+		}
+		else{
+			return obj.getValue().toString();
+		}
 	}
 
 
@@ -87,13 +99,13 @@ public class WechatJsSDK {
 				&& access_tokenStr.indexOf("ticket") != -1) {
 			try {
 				JSONObject jsonObject = new JSONObject(access_tokenStr);
-			    return 	access_token = jsonObject.getString("ticket");
-				
+				return 	access_token = jsonObject.getString("ticket");
+
 			} catch (JSONException e) {
 				// e.printStackTrace();
 			}
 		}
 		return "";
 	}
-	
+
 }

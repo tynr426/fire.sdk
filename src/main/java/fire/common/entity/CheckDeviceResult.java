@@ -4,6 +4,7 @@ public class CheckDeviceResult extends CheckDevice{
 	private String Name;
 	private String Model;
 	private String StatusDes;
+	private String Detail;
 	public String getStatusDes(){
 		if(Status==0){
 			StatusDes= "正常";
@@ -15,6 +16,12 @@ public class CheckDeviceResult extends CheckDevice{
 			StatusDes= "已整改";
 		}
 		return StatusDes;
+	}
+	public String getDetail() {
+		return Detail;
+	}
+	public void setDetail(String detail) {
+		Detail = detail;
 	}
 	private String SeverityLevelDes;
 	public String getSeverityLevelDes(){

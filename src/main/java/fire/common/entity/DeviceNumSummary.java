@@ -1,10 +1,6 @@
 package fire.common.entity;
 
-import java.util.Date;
 
-import org.springframework.format.annotation.DateTimeFormat;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class DeviceNumSummary {
 	//设备名

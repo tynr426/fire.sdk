@@ -21,10 +21,10 @@ public class Device  implements Serializable{
 	private String Spec;
 	private Date UseTime;
 	private Date AddTime;
-	private Integer Buildings;
-	private Integer Floor;
-	private String Position;
-	private String Passageway;
+	protected Integer Buildings;
+	protected Integer Floor;
+	protected String Position;
+	protected String Passageway;
 	private String Detail;
 	private int ManagerId;
 	private int CompanyId;

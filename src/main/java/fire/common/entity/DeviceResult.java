@@ -10,25 +10,28 @@ public class DeviceResult extends Device  implements Serializable{
 	private static final long serialVersionUID = -7980232114754736119L;
 	private String Name;
 	private String Code;
-	private String PositionDetail;
+	private String PositionDetail="";
 	public String getPositionDetail() {
-		if(Buildings!=0){
-			PositionDetail+=Buildings+"栋";
+		String temp="";
+		if(Buildings!=null&&Buildings!=0){
+			temp+=Buildings+"栋";
 		}
-		PositionDetail+=Floor+"楼";
+		if(Floor!=null){
+		temp+=Floor+"楼";
+		}
 		if(Position.equals("east")){
-			PositionDetail+="东";
+			temp+="东";
 		}else if(Position.equals("west")){
-			PositionDetail+="西";
+			temp+="西";
 		}else if(Position.equals("south")){
-			PositionDetail+="南";
+			temp+="南";
 		}else if(Position.equals("north")){
-			PositionDetail+="北";
+			temp+="北";
 		}
 		if(Passageway.equals("1")){
-			PositionDetail+="安全出口";
+			temp+="安全出口";
 		}
-		return PositionDetail;
+		return temp;
 	}
 
 	public String getCode() {
@@ -56,15 +59,4 @@ public class DeviceResult extends Device  implements Serializable{
 		this.list = list;
 	}
 
-	@Override
-	public String toString() {
-		return "DeviceResult [Name=" + Name + ", list=" + list + ", getCompanyId()=" + getCompanyId() + ", getId()="
-				+ getId() + ", getDeviceTypeId()=" + getDeviceTypeId() + ", getModel()=" + getModel()
-				+ ", getManufacturer()=" + getManufacturer() + ", getSpec()=" + getSpec() + ", getUseTime()="
-				+ getUseTime() + ", getAddTime()=" + getAddTime() + ", getBuildings()=" + getBuildings()
-				+ ", getFloor()=" + getFloor() + ", getPosition()=" + getPosition() + ", getPassageway()="
-				+ getPassageway() + ", getDetail()=" + getDetail() + ", hashCode()=" + hashCode() + ", toString()="
-				+ super.toString() + ", getClass()=" + getClass() + "]";
-	}
-	
 }

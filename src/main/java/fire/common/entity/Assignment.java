@@ -15,6 +15,13 @@ public class Assignment {
 	private Date PredictTime;
 	private Date AddTime;
 	private String Remark;
+	private String Title;
+	public String getTitle() {
+		return Title;
+	}
+	public void setTitle(String title) {
+		Title = title;
+	}
 	private Integer Status;
 	public int getId() {
 		return Id;

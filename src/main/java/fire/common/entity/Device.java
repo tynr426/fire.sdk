@@ -26,8 +26,24 @@ public class Device  implements Serializable{
 	protected String Position;
 	protected String Passageway;
 	private String Detail;
-	private int ManagerId;
 	private int CompanyId;
+	private Date RenewalDate;
+	private Integer Assignment;
+	public Integer getAssignment() {
+		return Assignment;
+	}
+	public void setAssignment(Integer assignment) {
+		Assignment = assignment;
+	}
+	@JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd")
+	public Date getRenewalDate() {
+		return RenewalDate;
+	}
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	public void setRenewalDate(Date renewalDate) {
+		RenewalDate = renewalDate;
+	}
+	
 	public int getCompanyId() {
 		return CompanyId;
 	}
@@ -131,13 +147,7 @@ public class Device  implements Serializable{
 			return false;
 		return true;
 	}
-	@Override
-	public String toString() {
-		return "Device [Id=" + Id + ", DeviceTypeId=" + DeviceTypeId + ", Model=" + Model + ", Manufacturer="
-				+ Manufacturer + ", Spec=" + Spec + ", UseTime=" + UseTime + ", AddTime=" + AddTime + ", Buildings="
-				+ Buildings + ", Floor=" + Floor + ", Position=" + Position + ", Passageway=" + Passageway + ", Detail="
-				+ Detail + ", ManagerId=" + ManagerId + ", CompanyId=" + CompanyId + "]";
-	}
+
 	
 	
 }

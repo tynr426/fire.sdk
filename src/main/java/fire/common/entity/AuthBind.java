@@ -1,8 +1,17 @@
 package fire.common.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class AuthBind {
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+public class AuthBind implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -856694005944356774L;
 	public int Id;
 	public int CompanyId;
 	public int ManagerId;
@@ -15,6 +24,27 @@ public class AuthBind {
 	public Date AuthoreTime;
 	public boolean IsReceiveMsg;
 	public Integer Subscribe;
+	private String UserName;
+	private String Code;
+	private String Password;
+	public String getUserName() {
+		return UserName;
+	}
+	public void setUserName(String userName) {
+		UserName = userName;
+	}
+	public String getCode() {
+		return Code;
+	}
+	public void setCode(String code) {
+		Code = code;
+	}
+	public String getPassword() {
+		return Password;
+	}
+	public void setPassword(String password) {
+		Password = password;
+	}
 	public int getId() {
 		return Id;
 	}
@@ -69,9 +99,11 @@ public class AuthBind {
 	public void setIntegType(String integType) {
 		IntegType = integType;
 	}
+	@JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd")
 	public Date getAuthoreTime() {
 		return AuthoreTime;
 	}
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	public void setAuthoreTime(Date authoreTime) {
 		AuthoreTime = authoreTime;
 	}

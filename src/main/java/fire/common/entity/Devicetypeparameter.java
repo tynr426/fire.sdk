@@ -23,7 +23,14 @@ public class Devicetypeparameter {
 	public void setId(int id) {
 		Id = id;
 	}
-
+	private int ParameterType;
+	public int getParameterType() {
+		return ParameterType;
+	}
+	public void setParameterType(int parameterType) {
+		ParameterType = parameterType;
+	}
+	
 	public String getDescription() {
 		return Description;
 	}

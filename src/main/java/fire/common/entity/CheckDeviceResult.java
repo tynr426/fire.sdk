@@ -1,21 +1,39 @@
 package fire.common.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class CheckDeviceResult extends CheckDevice{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6246664343346676036L;
 	private String Name;
 	private String Model;
 	private String StatusDes;
 	private String Detail;
+	private List<DeviceCheckParameterValue> list = new ArrayList<DeviceCheckParameterValue>();
+	
 	public String getStatusDes(){
 		if(Status==0){
 			StatusDes= "正常";
 		}else
 		if(Status==1){
-			StatusDes= "待整改";
+			StatusDes= "待指派";
 		}
 		else if(Status==2){
+			StatusDes= "待整改";
+		}
+		else if(Status==3){
 			StatusDes= "已整改";
 		}
 		return StatusDes;
+	}
+	public List<DeviceCheckParameterValue> getList() {
+		return list;
+	}
+	public void setList(List<DeviceCheckParameterValue> list) {
+		this.list = list;
 	}
 	public String getDetail() {
 		return Detail;

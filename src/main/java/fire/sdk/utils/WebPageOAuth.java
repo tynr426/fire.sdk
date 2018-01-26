@@ -69,15 +69,14 @@ public class WebPageOAuth {
 			entity.setOpenId(jsonObject.getString("openid"));
 			entity.setNickName(jsonObject.getString("nickname"));
 			entity.setSex(jsonObject.getInt("sex"));
-			entity.setFace(jsonObject.getString("headimgurl"));
-			entity.setUnionId(jsonObject.getString("unionId"));		
+			entity.setFace(jsonObject.getString("headimgurl"));	
 			return new JsonResult(entity);
 		}
 	}
 	//.5获取用户基本信息（包括UnionID机制）
 	public static JsonResult getInfo(String access_token,String openid){
 		String url =String.format(GET_INFO,access_token,openid);
-		String resultStr =HttpRequestUtils.sendHttpPost(url, "");
+		String resultStr =HttpRequestUtils.sendHttpGet(url);
 		JSONObject jsonObject = new JSONObject(resultStr);
 		if (jsonObject.has("errcode")){
 			WeiXinErrorMsg error=JsonUtils.JSONToObj(resultStr, WeiXinErrorMsg.class);
@@ -89,7 +88,6 @@ public class WebPageOAuth {
 			entity.setNickName(jsonObject.getString("nickname"));
 			entity.setSex(jsonObject.getInt("sex"));
 			entity.setFace(jsonObject.getString("headimgurl"));
-			entity.setUnionId(jsonObject.getString("unionId"));	
 			entity.setSubscribe(jsonObject.getInt("subscribe"));
 			return new JsonResult(entity);
 		}

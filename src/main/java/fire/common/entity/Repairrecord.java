@@ -1,17 +1,22 @@
 package fire.common.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-public class Repairrecord {
+public class Repairrecord implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5844445113191114308L;
 	private int Id;
 	private Integer AssignmentId;
 	private Integer DeviceId;
 	private Integer DeviceTypeId;
-	private Integer IsFinish;
+	private boolean IsFinish;
 	private String Certificate;
 	private String Description;
 	private Integer Status;
@@ -40,10 +45,10 @@ public class Repairrecord {
 	public void setDeviceTypeId(Integer deviceTypeId) {
 		DeviceTypeId = deviceTypeId;
 	}
-	public Integer getIsFinish() {
+	public boolean getIsFinish() {
 		return IsFinish;
 	}
-	public void setIsFinish(Integer isFinish) {
+	public void setIsFinish(boolean isFinish) {
 		IsFinish = isFinish;
 	}
 	public String getCertificate() {

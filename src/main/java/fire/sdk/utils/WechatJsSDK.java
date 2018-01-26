@@ -1,5 +1,9 @@
 package fire.sdk.utils;
 
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -8,6 +12,9 @@ public class WechatJsSDK {
 
 	private static final String GET_JSAPI_TICKET="https://api.weixin.qq.com/cgi-bin/ticket/getticket?type=jsapi&access_token=%1$s";
 
+	private static final String GET_JSAPI_MEDIA="https://api.weixin.qq.com/cgi-bin/media/get?access_token=%1$s&media_id=%2$s";
+	
+	
 	/**
 	 * 获取access_token，然后jsapi_ticket
 	 */
@@ -106,6 +113,31 @@ public class WechatJsSDK {
 			}
 		}
 		return "";
+	}
+	/*
+	 * 获取临时素材
+	 */
+	public static InputStream getMedia(String APPID, String APPSECRET,String mediaId) {
+
+	    String access_token = getAccessToken(APPID,APPSECRET);
+	    String url = String.format(GET_JSAPI_MEDIA, access_token,mediaId);
+	    
+	
+	       InputStream is = null;
+	       try {
+	           URL urlGet = new URL(url);
+	           HttpURLConnection http = (HttpURLConnection) urlGet.openConnection();
+	           http.setRequestMethod("GET"); // 必须是get方式请求
+	           http.setRequestProperty("Content-Type","application/x-www-form-urlencoded");
+	           http.setDoOutput(true);
+	           http.setDoInput(true);
+	           http.connect();
+	           // 获取文件转化为byte流
+	           is = http.getInputStream();
+	       } catch (Exception e) {
+	           e.printStackTrace();
+	       }
+	    return is;
 	}
 
 }

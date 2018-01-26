@@ -1,6 +1,7 @@
 package fire.common.entity;
 
 import java.util.Date;
+import java.util.List;
 
 public class Company {
 	private int Id;
@@ -22,6 +23,27 @@ public class Company {
 	private String Tel;
 	private String SN;
 	private String Atten;
+	private Integer Unitproperties;
+	private Integer Buildingtype;
+	private boolean Isimport;
+	public Integer getUnitproperties() {
+		return Unitproperties;
+	}
+	public void setUnitproperties(Integer unitproperties) {
+		Unitproperties = unitproperties;
+	}
+	public Integer getBuildingtype() {
+		return Buildingtype;
+	}
+	public void setBuildingtype(Integer buildingtype) {
+		Buildingtype = buildingtype;
+	}
+	public boolean isIsimport() {
+		return Isimport;
+	}
+	public void setIsimport(boolean isimport) {
+		Isimport = isimport;
+	}
 	public Company(){
 		
 	}
@@ -44,6 +66,9 @@ public class Company {
 		Code = code;
 	}
 	public String getLogo() {
+		if(Logo==null||Logo.equals("")){
+			Logo="/fireh5/images/user-pic.png";
+		}
 		return Logo;
 	}
 	public void setLogo(String logo) {

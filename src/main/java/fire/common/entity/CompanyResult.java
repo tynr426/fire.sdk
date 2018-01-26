@@ -12,8 +12,15 @@ public class CompanyResult extends Company{
 	private String Face;
 	private String Email;
 	private String Mobile;
+	public String getEnumDesc() {
+		return EnumDesc;
+	}
+	public void setEnumDesc(String enumDesc) {
+		EnumDesc = enumDesc;
+	}
 	private String Token;
 	private int UserId;
+	private String EnumDesc; 
 	public int getUserId() {
 		return UserId;
 	}

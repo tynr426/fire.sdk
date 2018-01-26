@@ -128,12 +128,16 @@ public class QRUtil {
         return file;
     }  
   
-    public static void mkdirs(String destPath) {  
+    public static String mkdirs(String destPath) {  
         File file = new File(destPath);  
         // 当文件夹不存在时，mkdirs会自动创建多层目录，区别于mkdir。(mkdir如果父目录不存在则会抛出异常)  
         if (!file.exists() && !file.isDirectory()) {  
             file.mkdirs();  
-        }  
+        } 
+    	if(!destPath.endsWith("\\")){
+			destPath+="\\";
+		}
+		return destPath;
     }  
   
     public static void encode(String content, String imgPath, String destPath) throws Exception {  

@@ -130,10 +130,10 @@ public class CacheUtils {
 	        }
 	        long nowDt = System.currentTimeMillis(); //系统当前的毫秒数
 	        long cacheDt = cache.getTimeOut(); //缓存内的过期毫秒数
-	        if (cacheDt <= 0||cacheDt>nowDt) { //过期时间小于等于零时,或者过期时间大于当前时间时，则为FALSE
-	            return false;
-	        } else { //大于过期时间 即过期
+	        if (cacheDt <= 0||cacheDt<nowDt) { //过期时间小于等于零时,或者过期时间大于当前时间时，则为FALSE
 	            return true;
+	        } else { //大于过期时间 即过期
+	            return false;
 	        }
 	    }
 	  

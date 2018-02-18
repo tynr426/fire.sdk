@@ -25,7 +25,7 @@ public class WechatJsSDK {
 		String ticket = null;// jsapi_ticket
 		String ttime = null;// 得到时间
 		String t_expires_in = null;// 有效时间(s)
-		String access_tokenStr = WechatJsSDK.getAccessToken(appId,appSecret);
+		String access_tokenStr = WechatJsSDK.getAccessToken(appId,appSecret,false);
 		if (access_tokenStr != null
 				&& access_tokenStr.indexOf("access_token") != -1) {
 			try {
@@ -62,12 +62,13 @@ public class WechatJsSDK {
 		}
 		return result;
 	}
-	public static String getAccessToken(String APPID, String APPSECRET) {
+	public static String getAccessToken(String APPID, String APPSECRET,boolean isFresh) {
 		String key="WechatConstants";
 		String token="";
 		Cache obj= CacheUtils.getCacheInfo(key);
-		if(obj==null){
+		if(obj==null||obj.isExpired()||isFresh){
 			String url =String.format(GET_ACCESS_TOKEN, APPID,APPSECRET);
+			System.out.println("object为空时:"+url);
 			String resultStr =HttpRequestUtils.sendHttpPost(url, "");
 
 			try {
@@ -76,7 +77,7 @@ public class WechatJsSDK {
 
 				Cache c = new Cache();
 				c.setValue(token);
-				c.setTimeOut(7000*1000);
+				c.setTimeOut(7000*1000+System.currentTimeMillis());
 				c.setExpired(false);
 				CacheUtils.putCache(key, c);
 
@@ -86,6 +87,7 @@ public class WechatJsSDK {
 			return token;
 		}
 		else{
+			//System.out.println("object不为空时:"+APPID);
 			return obj.getValue().toString();
 		}
 	}
@@ -119,7 +121,7 @@ public class WechatJsSDK {
 	 */
 	public static InputStream getMedia(String APPID, String APPSECRET,String mediaId) {
 
-	    String access_token = getAccessToken(APPID,APPSECRET);
+	    String access_token = getAccessToken(APPID,APPSECRET,false);
 	    String url = String.format(GET_JSAPI_MEDIA, access_token,mediaId);
 	    
 	

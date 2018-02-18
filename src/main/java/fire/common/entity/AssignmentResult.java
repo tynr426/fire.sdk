@@ -9,6 +9,13 @@ public class AssignmentResult extends Assignment{
 	private Integer DeviceTypeId;
 	private List<Repairrecord> list=new ArrayList<Repairrecord>();
 	private String DeviceType;
+	private Integer CheckStatus;
+	public Integer getCheckStatus() {
+		return CheckStatus;
+	}
+	public void setCheckStatus(Integer checkStatus) {
+		CheckStatus = checkStatus;
+	}
 	public String getDeviceType() {
 		return DeviceType;
 	}

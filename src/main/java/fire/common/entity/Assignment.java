@@ -1,12 +1,17 @@
 package fire.common.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-public class Assignment {
+public class Assignment  implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1348320788640159419L;
 	private int Id;
 	private Integer CompanyId;
 	private Integer FromManagerId;

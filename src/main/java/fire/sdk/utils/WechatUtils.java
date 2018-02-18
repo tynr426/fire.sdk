@@ -24,9 +24,13 @@ import fire.proxy.service.ProxyBase;
 public class WechatUtils {  
 	public static String accessToken = null;  
 	public static String sign(String url,WeChatAccount wca) {  
-		accessToken = WechatJsSDK.getAccessToken(wca.getAppId(), wca.getSecret());  
+		accessToken = WechatJsSDK.getAccessToken(wca.getAppId(), wca.getSecret(),false);  
 		String jsapi_ticket = WechatJsSDK.getJSAPITicket(accessToken);
-
+		//当获取ticket为空时
+		if(jsapi_ticket==null||jsapi_ticket.length()==0){
+			accessToken = WechatJsSDK.getAccessToken(wca.getAppId(), wca.getSecret(),true);  
+		    jsapi_ticket = WechatJsSDK.getJSAPITicket(accessToken);
+		}
 
 		Map<String, Object> ret = new HashMap<String, Object>();  
 		String nonce_str = create_nonce_str();  
@@ -36,7 +40,7 @@ public class WechatUtils {
 
 		String sign = "jsapi_ticket=" + jsapi_ticket + "&noncestr=" + nonce_str+ "&timestamp=" + timestamp + "&url=" + url;
 
-		System.out.println("sign="+sign);  
+		//System.out.println("sign="+sign);  
 
 		try  
 		{  
@@ -45,7 +49,7 @@ public class WechatUtils {
 			crypt.update(sign.getBytes("UTF-8"));
 			
 			signature =byteToStr(crypt.digest()); 
-			System.out.println("sign="+signature);
+			//System.out.println("sign="+signature);
 		}
 		catch (NoSuchAlgorithmException e)  
 		{  

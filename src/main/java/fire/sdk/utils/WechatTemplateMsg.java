@@ -39,7 +39,7 @@ public class WechatTemplateMsg {
 	}
 	public JsonResult Send(Map<String, Object> map){
 
-		String token=WechatJsSDK.getAccessToken(_appId, _secret);
+		String token=WechatJsSDK.getAccessToken(_appId, _secret,false);
 		String url=String.format(SEND_MESSAGE, token);
 		String resultStr =HttpRequestUtils.sendHttpPost(url,JsonUtils.objectToJson(map));
 		JSONObject jsonObject = new JSONObject(resultStr);

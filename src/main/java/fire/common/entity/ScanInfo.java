@@ -10,6 +10,14 @@ public class ScanInfo  implements Serializable{
 	private String Code;
 	private Integer DeviceTypeId;
 	private Integer DeviceId;
+	private Integer ToManagerId;
+	public Integer getToManagerId() {
+		return ToManagerId;
+	}
+	public void setToManagerId(Integer toManagerId) {
+		ToManagerId = toManagerId;
+	}
+
 	private Integer AssignmentId;
 	private String AssignmentDes;
 	private Integer CheckStatus;

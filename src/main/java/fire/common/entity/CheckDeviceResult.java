@@ -43,7 +43,7 @@ public class CheckDeviceResult extends CheckDevice{
 	}
 	private String SeverityLevelDes;
 	public String getSeverityLevelDes(){
-	
+	if(SeverityLevel==null) return SeverityLevelDes="无异常";
 		switch(SeverityLevel){
 			case 0:SeverityLevelDes="无异常"; break;
 			case 1:SeverityLevelDes="一般"; break;
